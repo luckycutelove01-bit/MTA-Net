@@ -1,15 +1,11 @@
-"""Historical encoders: modulo-59, unmasked; NOT revised uniform59/mask HMS."""
+
 import torch
 from torch import nn
 from torch.nn import functional as F
 import numpy as np
 
 class LBPFeatureExtractor(nn.Module):
-    """
-    当前实验版本：
-    - 默认 grid_size=4
-    - radii 改为 (1, 2, )
-    """
+   
     def __init__(self, grid_size=4, radii=(1, 2, ), num_bins=59):
         super().__init__()
         self.grid_size = grid_size
