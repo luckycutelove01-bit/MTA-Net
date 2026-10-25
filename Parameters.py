@@ -1,4 +1,4 @@
-"""Defaults retained from the revised MTA-Net source, not an experiment matrix."""
+
 from dataclasses import dataclass
 from pathlib import Path
 ROOT = Path(__file__).resolve().parent
