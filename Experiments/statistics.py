@@ -7,7 +7,7 @@ def summarize_five_runs(rows):
     """Rows contain seed, chi_square, mae and nrmse (percent) for ONE configuration.
 
     Same aggregate mean and ddof=1 convention as train.py:summarize_runs,
-    with explicit completeness validation. No file reading or invented runs.
+    with explicit completeness validation..
     """
     rows=list(rows)
     if len(rows)!=5 or sorted(row['seed'] for row in rows)!=list(SEEDS):
