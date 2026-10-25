@@ -1,4 +1,4 @@
-"""Extracted from revised paper_model.py; geometric mask, uniform59, mean fusion."""
+
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import Sequence
