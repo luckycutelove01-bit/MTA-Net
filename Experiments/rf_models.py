@@ -1,6 +1,4 @@
-"""Historical RF components on supplied arrays; no image or label file reading.
-Original fit population was train + validation (171), not train-only (145).
-"""
+
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.multioutput import MultiOutputRegressor
