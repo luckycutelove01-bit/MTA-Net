@@ -1,6 +1,4 @@
-"""Single-run training, labelled evaluation, actual composite loss and metrics.
-Algorithm bodies extracted from paper_model.py and final_pipeline.py.
-"""
+
 import os,random,json
 from pathlib import Path
 import numpy as np
