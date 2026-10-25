@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-25",
+  "image_count": 202,
+  "label_count": 202,
+  "source_image_directory": "D:\\Test5_resnet\\data\\images",
+  "source_label_file": "D:\\Test5_resnet\\data\\grain_size_labels.xlsx",
+  "source_label_sha256": "d86cf9ab7538039aa2363fa7ebf6cc73eb6ca6a81d0ac1d5e70288717c805bb3",
+  "source_sheet": "Sheet1",
+  "source_columns": [
+    "样本名",
+    "<100μm",
+    "100-250μm",
+    "250-500μm",
+    "500-1000μm",
+    ">1000μm"
+  ],
+  "label_unit": "percent; unchanged measured values",
+  "sample_id_range": "wh1-001.tif to wh1-202.tif",
+  "labels_sha256": "b8348128a5d4cdac0000b7491398680ea18e682483fdc36a5df8e94e87ebf552",
+  "fixed_split_sha256": "1fefee351911d5731375921d9aad29d82ce09b548e4886246d4176d1b7869de2",
+  "subset_counts": {
+    "train": 145,
+    "val": 26,
+    "test": 31
+  },
+  "missing_ids": [],
+  "duplicate_ids": [],
+  "overlapping_ids": [],
+  "all_images_decoded": true,
+  "all_image_hashes_match_source": true,
+  "original_101_labels_unchanged": true,
+  "row_sum_min_pct": 99.9998,
+  "row_sum_max_pct": 100.0002,
+  "unique_image_hashes": 202,
+  "loading_code_restored": false,
+  "training_performed": false,
+  "public_upload_performed": false
+}
