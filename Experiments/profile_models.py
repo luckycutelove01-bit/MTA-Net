@@ -1,6 +1,4 @@
-"""Scheme-C network classes only. Historical runs used unmasked cached features.
-Do not substitute current masked features and call that the old experiment.
-"""
+
 import torch
 from Experiments import stage_models as pm
 
