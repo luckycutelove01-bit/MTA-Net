@@ -13,9 +13,9 @@ class MTA_Net(nn.Module):
                  cbam_stage: int = CBAM_STAGE, pretrained: bool = True):
         super().__init__()
         if hms_stage != HMS_STAGE:
-            raise ValueError("This compact project fixes HMS after Stage2")
+            raise ValueError("The main MTA-Net configuration applies HMS after Stage2")
         if cbam_stage != CBAM_STAGE:
-            raise ValueError("This compact project fixes CBAM after Stage4")
+            raise ValueError("The main MTA-Net configuration applies CBAM after Stage4")
         self.hms_stage = int(hms_stage)
         self.cbam_stage = int(cbam_stage)
         weights = tv_models.ResNet34_Weights.DEFAULT if pretrained else None

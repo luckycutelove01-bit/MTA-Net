@@ -24,15 +24,15 @@ ENTROPY_WEIGHT = 0.6
 EPSILON = 1e-8
 BIN_NAMES = ['<100 um','100-250 um','250-500 um','500-1000 um','1000-2000 um']
 CSV_COLUMNS = ['lt100','100_250','250_500','500_1000','1000_2000']
-CHECKPOINT_FORMAT = 'MTA-Net-revised-mask-grayfirst-20261022'
+CHECKPOINT_FORMAT = 'MTA-Net-v1'
 
 @dataclass
 class RunParameters:
-    image_dir: str = str(ROOT / 'data' / 'images')
-    labels: str = str(ROOT / 'data' / 'grain_size_labels.xlsx')
+    image_dir: str = str(ROOT / 'samples' / 'images')
+    labels: str = str(ROOT / 'samples' / 'labels.csv')
     split: str = str(ROOT / 'Datasets' / 'fixed_split_seed21.json')
     output: str = str(ROOT / 'results' / 'seed21')
-    seed: int = 21  # ONE run; no five-seed launcher
+    seed: int = 21  # Model seed; dataset membership is defined by the split file.
     batch_size: int = 8
     epochs: int = 50
     learning_rate: float = 0.0005

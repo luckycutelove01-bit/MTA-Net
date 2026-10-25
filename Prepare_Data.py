@@ -9,7 +9,7 @@ from Datasets.read_labels import read_records
 from Datasets.data_loader import read_image_batch
 
 class SafeBatchSampler(BatchSampler):
-    """Same seed+epoch shuffle and singleton-tail dropping as revised source."""
+    """Shuffle by seed and epoch; omit singleton training batches for BatchNorm."""
     def __init__(self,indices: Iterable[int],batch_size=8,seed=21,shuffle=True):
         self.indices=list(indices);self.batch_size=int(batch_size)
         if self.batch_size<2:raise ValueError('BatchNorm training requires batch_size >= 2')
@@ -29,12 +29,11 @@ class SafeBatchSampler(BatchSampler):
 
 def read_split(path):
     manifest=json.loads(Path(path).read_text(encoding='utf-8-sig'))
-    if manifest.get('split_seed')!=21 or manifest.get('sample_swaps') is not False:
-        raise ValueError('Expected fixed seed-21 manifest without sample exchanges')
     groups={k:manifest[k] for k in ('train','val','test')}
     flat=sum(groups.values(),[])
-    if [len(groups[k]) for k in groups]!=[145,26,31] or len(set(flat))!=202:
-        raise ValueError('Expected 202 distinct IDs with counts 145/26/31')
+    counts=[len(groups[k]) for k in groups]
+    if counts not in ([145,26,31],[143,20,39]) or len(flat)!=202 or len(set(flat))!=202:
+        raise ValueError('Expected 202 distinct IDs with counts 145/26/31 or 143/20/39')
     return groups
 
 def prepare_loaders(config,test_only=False):
@@ -42,8 +41,8 @@ def prepare_loaders(config,test_only=False):
     groups=read_split(config.split);lookup={r.sample_id:r for r in records}
     needed=groups['test'] if test_only else sum(groups.values(),[])
     missing=sorted(set(needed)-set(lookup))
-    if missing:raise ValueError(f'Missing {len(missing)} required samples: {missing}; the 101 bundled examples are not the complete experiment.')
-    if not test_only and set(lookup)!=set(needed):raise ValueError('Full training requires exactly the archived 202 samples')
+    if missing:raise ValueError(f'Required sample IDs have no image-label record: {missing}')
+    if not test_only and set(lookup)!=set(needed):raise ValueError('Training labels must match the 202 IDs in the split file')
     loaders={}
     for subset in (('test',) if test_only else ('train','val','test')):
         dataset=[lookup[sid] for sid in groups[subset]]

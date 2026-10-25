@@ -90,7 +90,7 @@ def initialize_model(pretrained=True):
 def load_checkpoint(path,device='cpu'):
     checkpoint=torch.load(path,map_location=device,weights_only=True)
     if checkpoint.get('format')!=CHECKPOINT_FORMAT:
-        raise ValueError('Expected a checkpoint from this revised project; old checkpoints are not automatically converted.')
+        raise ValueError(f'Expected checkpoint format {CHECKPOINT_FORMAT!r}')
     if json.dumps(checkpoint.get('method_settings'),sort_keys=True)!=json.dumps(method_settings(),sort_keys=True):
         raise ValueError('Checkpoint method settings differ from this code')
     model=initialize_model(pretrained=False).to(device)

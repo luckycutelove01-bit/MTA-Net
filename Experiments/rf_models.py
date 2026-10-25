@@ -79,7 +79,7 @@ def wavelet_like_features(gray):
 
 
 def build_rf(seed=21):
-    # Exact estimator settings from train.py:train_rf_model_one_seed.
+    # Random-forest estimator settings.
     return MultiOutputRegressor(RandomForestRegressor(
         n_estimators=500, max_features='sqrt', min_samples_leaf=2,
         random_state=int(seed), n_jobs=-1))
@@ -93,7 +93,7 @@ def rf_features(gray, kind):
         return wavelet_like_features(gray)
     if kind == 'lbp_rf':
         import torch
-        from Experiments.legacy_lbp import LBPFeatureExtractor
+        from Experiments.texture_encodings import LBPFeatureExtractor
         x = torch.as_tensor(gray, dtype=torch.float32)[None, None]
         return LBPFeatureExtractor()(x)[0].cpu().numpy()
     raise ValueError(kind)
