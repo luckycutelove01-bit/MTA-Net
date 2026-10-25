@@ -1,8 +1,4 @@
-"""Existing partial baselines, extracted from model.py.
-ResNet34, ResNet50 and EfficientNet-B0 use ImageNet pretrained backbones.
-The five-output regression layer is newly initialized; CNN remains random.
-Components only: no batch experiment platform, no encoding ablation variants.
-"""
+
 import torch
 import torch.nn as nn
 from torchvision import models as tv_models
