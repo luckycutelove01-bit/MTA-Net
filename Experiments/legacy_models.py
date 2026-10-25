@@ -1,6 +1,4 @@
-"""Historical block-level models. Preserve random initialization and additive fusion.
-Not the manuscript-aligned stage-level implementation.
-"""
+
 import torch
 from torch import nn
 from torchvision import models as tv_models
