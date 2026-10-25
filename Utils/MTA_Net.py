@@ -6,7 +6,6 @@ from Utils.Texture_Injection import HMSProjection
 from Utils.CBAM import StageCBAM
 
 class MTA_Net(nn.Module):
-    """Revised MTA-Net; Stage2 texture and Stage4 attention, each once."""
 
     STAGE_CHANNELS = {1: 64, 2: 128, 3: 256, 4: 512}
 
