@@ -1,4 +1,4 @@
-"""Evaluate a specified revised checkpoint on the labelled fixed test set."""
+
 import argparse
 from Parameters import RunParameters
 from pathlib import Path
