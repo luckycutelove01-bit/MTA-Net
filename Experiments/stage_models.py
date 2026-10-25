@@ -1,4 +1,4 @@
-"""Existing revised M1-M4 model, extracted without changing mathematical operations."""
+
 import torch
 from torch import nn
 from torchvision import models as tv_models
