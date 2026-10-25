@@ -1,4 +1,4 @@
-"""Summarize supplied five-run metrics, not images, labels or pooled predictions."""
+
 import numpy as np
 
 SEEDS = (21, 42, 63, 84, 105)
