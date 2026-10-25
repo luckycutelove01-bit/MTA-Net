@@ -1,4 +1,4 @@
-"""Build components from explicit experiment choices, never read image/label files."""
+
 from pathlib import Path
 import json
 import warnings
