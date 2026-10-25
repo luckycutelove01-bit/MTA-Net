@@ -2,8 +2,8 @@
 import torch
 from Experiments import stage_models as pm
 
-class HistoricalCompatiblePaper(pm.PaperMTANet):
-    """Current forward structure with historical module names, validated by checkpoint inference.
+class ProfileMTANet(pm.PaperMTANet):
+    """MTA-Net with texture_projection and classifier parameter names.
     Renaming preserves registration order and numerical operations. No extra learned parameters.
     """
     def __init__(self,pretrained=False):
@@ -22,7 +22,7 @@ class HistoricalCompatiblePaper(pm.PaperMTANet):
         return self.classifier(torch.flatten(self.avgpool(x),1))
 
 
-class PaperResNet34Baseline(HistoricalCompatiblePaper):
+class PaperResNet34Baseline(ProfileMTANet):
     def __init__(self, pretrained=True):
         super().__init__(pretrained=pretrained)
         del self.texture_projection

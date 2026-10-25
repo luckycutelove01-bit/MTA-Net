@@ -6,8 +6,7 @@ SEEDS = (21, 42, 63, 84, 105)
 def summarize_five_runs(rows):
     """Rows contain seed, chi_square, mae and nrmse (percent) for ONE configuration.
 
-    Same aggregate mean and ddof=1 convention as train.py:summarize_runs,
-    with explicit completeness validation..
+    Report the arithmetic mean and sample standard deviation (ddof=1).
     """
     rows=list(rows)
     if len(rows)!=5 or sorted(row['seed'] for row in rows)!=list(SEEDS):

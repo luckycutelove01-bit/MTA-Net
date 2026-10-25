@@ -6,18 +6,18 @@ import warnings
 def catalog():
     return json.loads(Path(__file__).with_name('experiment_catalog.json').read_text(encoding='utf-8'))
 
-def build_components(family, variant, seed=21, allow_historical=False):
-    """Return (model, texture_extractor_or_None, provenance_spec).
+def build_components(family, variant, seed=21, include_alternative_implementations=False):
+    """Return (model, texture_extractor_or_None, configuration).
 
     No training is performed. Set the training RNG before calling this function.
     RF receives the supplied seed in its estimator configuration.
     """
     spec=dict(catalog()[family][variant])
-    if spec['status']=='historical':
-        if not allow_historical:
-            raise ValueError('Historical implementation requires allow_historical=True: '+spec['reason'])
+    if spec.get('implementation') == 'alternative':
+        if not include_alternative_implementations:
+            raise ValueError('Select include_alternative_implementations=True for this configuration: '+spec['reason'])
         warnings.warn(spec['reason'],RuntimeWarning)
-    from Experiments import legacy_models as lm, legacy_lbp as ll
+    from Experiments import comparison_models as lm, texture_encodings as ll
     from Utils.HMS_LBP import UniformHMSLBPFeatureExtractor
     from Utils.MTA_Net import MTA_Net
     from Utils.Baseline_models import initialize_baseline
@@ -41,7 +41,7 @@ def build_components(family, variant, seed=21, allow_historical=False):
     if family=='radius':return PaperMTANet(),UniformHMSLBPFeatureExtractor(radii=spec['radii']),spec
     if family=='stage':return PaperMTANet(hms_stage=spec['hms_stage'],cbam_stage=spec['cbam_stage']),UniformHMSLBPFeatureExtractor(),spec
     if family=='profile':
-        from Experiments.profile_models import HistoricalCompatiblePaper,PaperResNet34Baseline
-        model=HistoricalCompatiblePaper(True) if variant=='mtanet' else PaperResNet34Baseline(True)
+        from Experiments.profile_models import ProfileMTANet,PaperResNet34Baseline
+        model=ProfileMTANet(True) if variant=='mtanet' else PaperResNet34Baseline(True)
         return model,None,spec
     raise ValueError(family)

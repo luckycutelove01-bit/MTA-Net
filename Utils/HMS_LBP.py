@@ -145,7 +145,7 @@ def local_frequency_histogram(code_map: np.ndarray, valid_mask: np.ndarray,
     return np.concatenate(histograms).astype(np.float32, copy=False), warnings
 
 class UniformHMSLBPFeatureExtractor(nn.Module):
-    """Non-trainable, deterministic paper-aligned HMS-LBP extractor."""
+    """Deterministic HMS-LBP descriptor with uniform-u2 bins and a geometric mask."""
 
     def __init__(self, grid_size: int = HMS_GRID_SIZE,
                  radii: Sequence[int] = HMS_RADII,
@@ -162,7 +162,7 @@ class UniformHMSLBPFeatureExtractor(nn.Module):
                          content_mask: np.ndarray,
                          padded_gray: np.ndarray | None = None) -> tuple[np.ndarray, list[str]]:
         # Two-argument use remains a low-level already-prepared-image API.
-        # Formal image ingestion must use extract_pil or provide padded_gray.
+        # Image-file ingestion uses extract_pil or supplies grayscale-before-resize data.
         gray = rgb_to_luminance(padded_rgb) if padded_gray is None else np.asarray(padded_gray, dtype=np.float32)
         scale_features = []
         all_warnings: list[str] = []

@@ -1,30 +1,112 @@
 {
-  "date": "2026-10-22",
-  "reference_roles_only": "https://github.com/weizi8248/Sedihist",
-  "source_files": [
+  "files": [
     {
-      "path": "paper_model.py",
-      "sha256": "e5121ea5d4401c11f9166f3cd643fc685a1236c12e3262618d27bbbc5df9bfbe"
+      "path": "Datasets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
-      "path": "final_pipeline.py",
-      "sha256": "650a17cb70589e6c670b2ad629c70a452bc96cc5ce725e4a4041fe231d2e9477"
+      "path": "Datasets/data_loader.py",
+      "sha256": "e896883eeafb18d31db71d45fa01292e05bdbf89cf4aac294969fdbd862fe743"
     },
     {
-      "path": "model.py",
-      "sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+      "path": "Datasets/read_labels.py",
+      "sha256": "a79230879fdb820ee3157693f4120b63a7be28a21d4df1dcea9cb0ddd82d6c49"
     },
     {
-      "path": "train.py",
-      "sha256": "93ab81ef38eafb3f3601b4f0db911035c40fe3538b8fb72bd56edf2b8a1091e9"
+      "path": "Experiments/__init__.py",
+      "sha256": "17f0340795dd53ee04d519c5f6068f3dde6351f8eb07b3b7a01129d1af5f908d"
     },
     {
-      "path": "data/grain_size_labels.xlsx",
-      "sha256": "d86cf9ab7538039aa2363fa7ebf6cc73eb6ca6a81d0ac1d5e70288717c805bb3"
+      "path": "Experiments/__main__.py",
+      "sha256": "a2ae9be31c7e03e5e62aeb5b2624fb8e85157317708edb0bb53876b541e330e2"
     },
     {
-      "path": "final_run_outputs/fixed_split_seed21.json",
-      "sha256": "1fefee351911d5731375921d9aad29d82ce09b548e4886246d4176d1b7869de2"
+      "path": "Experiments/comparison_models.py",
+      "sha256": "df00a412e655c0643bc1c6aa2a7afbf8f915034ad315fb0c73cc34ef860fa34e"
+    },
+    {
+      "path": "Experiments/factory.py",
+      "sha256": "c8cfdf6e4e3a7eaba5ea6adb2f2ad93941c5b5498ecbfef8cdc3804e86b10775"
+    },
+    {
+      "path": "Experiments/profile_models.py",
+      "sha256": "b237f797eca6465a2b4ca8bd4c25cc538308a8780fe2386aac6afa61155f1919"
+    },
+    {
+      "path": "Experiments/rf_models.py",
+      "sha256": "f5de7f4af46b62a610cfc58b09abb2eb2a5942e777da5be48ea635dab8961a1e"
+    },
+    {
+      "path": "Experiments/stage_models.py",
+      "sha256": "202eb755c418454fd787e7c7fb49089a5497cccf1985f24c6f2a1a1461e554c9"
+    },
+    {
+      "path": "Experiments/statistics.py",
+      "sha256": "b5ea8ca4aa66b66aa39d54e26eb135d95a8f00dbceaaad19214c5c608ab78fd9"
+    },
+    {
+      "path": "Experiments/texture_encodings.py",
+      "sha256": "a1921fc8938bb9bb241697d18f05396ae0943b5c1b2e96ee76269f7a25883cf2"
+    },
+    {
+      "path": "Parameters.py",
+      "sha256": "53738592a155294fc2a19c437b48571079fd0a14af1e7b504ce34af3ea624e6a"
+    },
+    {
+      "path": "Prepare_Data.py",
+      "sha256": "4f27f9b6855e404ec4a0716db45c7b037a0ce9b4aab6cf3bf591711537853683"
+    },
+    {
+      "path": "Utils/Baseline_models.py",
+      "sha256": "514ec33bd12777230cb0550bf13a600c5500fac296c9895dcc58f1041bc376fb"
+    },
+    {
+      "path": "Utils/CBAM.py",
+      "sha256": "ee5c90ea79bc3bfa01ef2e81fa5c056b3eedc9eb4723211697068641da4c6ef2"
+    },
+    {
+      "path": "Utils/HMS_LBP.py",
+      "sha256": "febd09953fbe75455d8a71e3ed2868195391213cfe4543f1f98bbceec2130528"
+    },
+    {
+      "path": "Utils/MTA_Net.py",
+      "sha256": "73367dd559dfe2b40753f3f8755ef47f343b3d02fca14ae46e7391998ae8f371"
+    },
+    {
+      "path": "Utils/Network_functions.py",
+      "sha256": "7b7bc0b5a6bb12c92d5c9ba9b54f3916bbb291bd1c56255daf1465f2c52c9651"
+    },
+    {
+      "path": "Utils/Save_Results.py",
+      "sha256": "87fa8f8b3c93dacaa14ac6c6c6dbdb45688365ba8d9a90e2f5a9f9b55e4d1112"
+    },
+    {
+      "path": "Utils/Texture_Injection.py",
+      "sha256": "0130bb271689b9aeacaeaa7084d8308c9028b4567454d2f1487ace6a3bfe4c7f"
+    },
+    {
+      "path": "Utils/__init__.py",
+      "sha256": "bf27ec9685945ef8fd92441aab7a477c1ac1f9d5f22b294315081877cd9739e6"
+    },
+    {
+      "path": "test_MTA_Net.py",
+      "sha256": "4384e2c17c8d664a9a808ef9c7f706f3e5972883de50ba86aa303b60beb3f614"
+    },
+    {
+      "path": "tests/__init__.py",
+      "sha256": "2acfde1209f3dc5d776c06e51ff4f67d918a41478e93d5afebe3c8d27815dbed"
+    },
+    {
+      "path": "tests/test_pipeline.py",
+      "sha256": "5cdde66bf48c31ef331099c687ba8de5d402b814c438771d297a6b18752527cb"
+    },
+    {
+      "path": "train_MTA_Net.py",
+      "sha256": "80dd0874cceac07b76363645381c1f0e6301247e8679a278aaf8ab09a8377e50"
+    },
+    {
+      "path": "verify_dataset.py",
+      "sha256": "c0230dc222155bfd4170fc54d95b90f5e447a6472b7a21977ed8779b642faf68"
     }
   ]
 }
