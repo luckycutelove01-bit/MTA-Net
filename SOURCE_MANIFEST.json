@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-22",
+  "reference_roles_only": "https://github.com/weizi8248/Sedihist",
+  "source_files": [
+    {
+      "path": "paper_model.py",
+      "sha256": "e5121ea5d4401c11f9166f3cd643fc685a1236c12e3262618d27bbbc5df9bfbe"
+    },
+    {
+      "path": "final_pipeline.py",
+      "sha256": "650a17cb70589e6c670b2ad629c70a452bc96cc5ce725e4a4041fe231d2e9477"
+    },
+    {
+      "path": "model.py",
+      "sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+    },
+    {
+      "path": "train.py",
+      "sha256": "93ab81ef38eafb3f3601b4f0db911035c40fe3538b8fb72bd56edf2b8a1091e9"
+    },
+    {
+      "path": "data/grain_size_labels.xlsx",
+      "sha256": "d86cf9ab7538039aa2363fa7ebf6cc73eb6ca6a81d0ac1d5e70288717c805bb3"
+    },
+    {
+      "path": "final_run_outputs/fixed_split_seed21.json",
+      "sha256": "1fefee351911d5731375921d9aad29d82ce09b548e4886246d4176d1b7869de2"
+    }
+  ]
+}

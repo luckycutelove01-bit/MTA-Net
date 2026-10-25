@@ -1,0 +1,189 @@
+[
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "LBPFeatureExtractor",
+    "start_line": 56,
+    "end_line": 123,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "TraditionalLBPFeatureExtractor",
+    "start_line": 127,
+    "end_line": 168,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "RotationInvariantLBPFeatureExtractor",
+    "start_line": 171,
+    "end_line": 191,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "VerticalLBPFeatureExtractor",
+    "start_line": 194,
+    "end_line": 236,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "IsotropicMultiScaleLBPFeatureExtractor",
+    "start_line": 239,
+    "end_line": 270,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "ChannelAttention",
+    "start_line": 9,
+    "end_line": 25,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "SpatialAttention",
+    "start_line": 28,
+    "end_line": 40,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "CBAM",
+    "start_line": 43,
+    "end_line": 52,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "LBPFusionModule",
+    "start_line": 273,
+    "end_line": 300,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "LBPEnhancedBasicBlock",
+    "start_line": 304,
+    "end_line": 343,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "ResNetWithLBPIntegration",
+    "start_line": 347,
+    "end_line": 456,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "resnet34_lbp_integrated",
+    "start_line": 459,
+    "end_line": 468,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "resnet34_lbp_only",
+    "start_line": 471,
+    "end_line": 479,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "resnet34_cbam_only",
+    "start_line": 482,
+    "end_line": 490,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "BaseUnifiedModel",
+    "start_line": 506,
+    "end_line": 512,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "TorchvisionBackboneRegressor",
+    "start_line": 554,
+    "end_line": 584,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\model.py",
+    "symbol": "ResNet50WithLBP",
+    "start_line": 636,
+    "end_line": 688,
+    "source_sha256": "7a71fa444cb451eb77c39bd63eeb4f39e1699d6a371993ee7c100e1f75390937"
+  },
+  {
+    "source": "D:\\Test5_resnet\\paper_model.py",
+    "symbol": "PaperMTANet",
+    "start_line": 293,
+    "end_line": 375,
+    "source_sha256": "e5121ea5d4401c11f9166f3cd643fc685a1236c12e3262618d27bbbc5df9bfbe"
+  },
+  {
+    "source": "D:\\Test5_resnet\\Profile_Wise_Validation_C\\source_snapshot\\historical_compatible.py",
+    "symbol": "HistoricalCompatiblePaper",
+    "start_line": 4,
+    "end_line": 21,
+    "source_sha256": "99b5212214286a5ab3d5b83f5dcee0942d2a49aa2f55a5c23e43a57d7917b46b"
+  },
+  {
+    "source": "D:\\Test5_resnet\\Profile_Wise_Validation_C\\paper_resnet34_baseline.py",
+    "symbol": "PaperResNet34Baseline",
+    "start_line": 9,
+    "end_line": 16,
+    "source_sha256": "9e5d90559c07c8028f8ab925d23e4d5968aeae00ecd44600a1833d45b192d5ce"
+  },
+  {
+    "source": "D:\\Test5_resnet\\train.py",
+    "symbol": "normalize_distribution",
+    "start_line": 1357,
+    "end_line": 1365,
+    "source_sha256": "93ab81ef38eafb3f3601b4f0db911035c40fe3538b8fb72bd56edf2b8a1091e9"
+  },
+  {
+    "source": "D:\\Test5_resnet\\train.py",
+    "symbol": "glcm_features",
+    "start_line": 1560,
+    "end_line": 1591,
+    "source_sha256": "93ab81ef38eafb3f3601b4f0db911035c40fe3538b8fb72bd56edf2b8a1091e9"
+  },
+  {
+    "source": "D:\\Test5_resnet\\train.py",
+    "symbol": "wavelet_like_features",
+    "start_line": 1594,
+    "end_line": 1621,
+    "source_sha256": "93ab81ef38eafb3f3601b4f0db911035c40fe3538b8fb72bd56edf2b8a1091e9"
+  },
+  {
+    "source": "D:\\Test5_resnet\\Profile_Wise_Validation_C\\experiment_manifest.json",
+    "source_sha256": "5aa4171732a88d9c13e89283fef5937075a5a258f2d31788c9284ced9fc75e51",
+    "role": "configuration evidence, not bundled execution or loading code"
+  },
+  {
+    "source": "D:\\Test5_resnet\\Profile_Wise_Validation_C\\continuation_evidence\\continuation_manifest.json",
+    "source_sha256": "1c4867ed2d614b548d05a08ec7459997105d1bf65400b3a53414c239adb2a8d5",
+    "role": "configuration evidence, not bundled execution or loading code"
+  },
+  {
+    "source": "D:\\Test5_resnet\\train.py",
+    "symbol": "summarize_runs",
+    "start_line": 1426,
+    "end_line": 1434,
+    "source_sha256": "93ab81ef38eafb3f3601b4f0db911035c40fe3538b8fb72bd56edf2b8a1091e9",
+    "usage": "Settings/statistical convention reference; original loading/training function not copied"
+  },
+  {
+    "source": "D:\\Test5_resnet\\train.py",
+    "symbol": "train_rf_model_one_seed",
+    "start_line": 1640,
+    "end_line": 1666,
+    "source_sha256": "93ab81ef38eafb3f3601b4f0db911035c40fe3538b8fb72bd56edf2b8a1091e9",
+    "usage": "Settings/statistical convention reference; original loading/training function not copied"
+  }
+]

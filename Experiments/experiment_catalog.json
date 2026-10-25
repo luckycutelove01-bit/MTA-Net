@@ -1,0 +1,183 @@
+{
+  "seeds": [
+    21,
+    42,
+    63,
+    84,
+    105
+  ],
+  "comparison": {
+    "wavelet_rf": {
+      "status": "historical",
+      "reason": "Original RF fits train+val; feature implementation is three-level Haar-like statistics."
+    },
+    "glcm_rf": {
+      "status": "historical",
+      "reason": "Original RF fits train+val; GLCM 16 levels, 3 distances, 4 directions."
+    },
+    "lbp_rf": {
+      "status": "historical",
+      "reason": "Original RF fits train+val and uses historical HMS/modulo59, despite label LBP+RF."
+    },
+    "cnn": {
+      "status": "component",
+      "reason": "Random shallow CNN; no input loader."
+    },
+    "resnet34": {
+      "status": "component",
+      "reason": "ImageNet DEFAULT, five-output head; updated initialization is not proof of old-run provenance."
+    },
+    "resnet50": {
+      "status": "component",
+      "reason": "ImageNet DEFAULT, five-output head."
+    },
+    "resnet50_lbp": {
+      "status": "historical",
+      "reason": "Random ResNet50, additive Stage2 fusion; recorded lbp_type=hms; conflicts need resolution."
+    },
+    "efficientnet": {
+      "status": "component",
+      "reason": "ImageNet DEFAULT EfficientNet-B0, five-output head."
+    },
+    "mtanet": {
+      "status": "component",
+      "reason": "Current revised masked uniform59 HMS, Stage2/Stage4."
+    }
+  },
+  "ablation": {
+    "resnet34": {
+      "status": "historical",
+      "reason": "Existing legacy ablation implementation; random backbone and block-level fusion, not a verified revised-paper run."
+    },
+    "resnet34_lbp": {
+      "status": "historical",
+      "reason": "Existing legacy ablation implementation; random backbone and block-level fusion, not a verified revised-paper run."
+    },
+    "resnet34_hms": {
+      "status": "historical",
+      "reason": "Existing legacy ablation implementation; random backbone and block-level fusion, not a verified revised-paper run."
+    },
+    "resnet34_cbam": {
+      "status": "historical",
+      "reason": "Existing legacy ablation implementation; random backbone and block-level fusion, not a verified revised-paper run."
+    },
+    "mtanet": {
+      "status": "historical",
+      "reason": "Existing legacy ablation implementation; random backbone and block-level fusion, not a verified revised-paper run."
+    }
+  },
+  "encoding": {
+    "standard": {
+      "status": "historical",
+      "reason": "Existing modulo59/unmasked encoder and block-level ResNet34 without CBAM; not revised uniform59-mask experiment."
+    },
+    "rotation_invariant": {
+      "status": "historical",
+      "reason": "Existing modulo59/unmasked encoder and block-level ResNet34 without CBAM; not revised uniform59-mask experiment."
+    },
+    "vertical": {
+      "status": "historical",
+      "reason": "Existing modulo59/unmasked encoder and block-level ResNet34 without CBAM; not revised uniform59-mask experiment."
+    },
+    "isotropic": {
+      "status": "historical",
+      "reason": "Existing modulo59/unmasked encoder and block-level ResNet34 without CBAM; not revised uniform59-mask experiment."
+    },
+    "hms": {
+      "status": "historical",
+      "reason": "Existing modulo59/unmasked encoder and block-level ResNet34 without CBAM; not revised uniform59-mask experiment."
+    }
+  },
+  "radius": {
+    "r1": {
+      "status": "component",
+      "radii": [
+        1
+      ],
+      "reason": "Existing revised extractor accepts these radii; original run evidence uses a different legacy pipeline. No new runs completed."
+    },
+    "r2": {
+      "status": "component",
+      "radii": [
+        2
+      ],
+      "reason": "Existing revised extractor accepts these radii; original run evidence uses a different legacy pipeline. No new runs completed."
+    },
+    "r3": {
+      "status": "component",
+      "radii": [
+        3
+      ],
+      "reason": "Existing revised extractor accepts these radii; original run evidence uses a different legacy pipeline. No new runs completed."
+    },
+    "r1_2": {
+      "status": "component",
+      "radii": [
+        1,
+        2
+      ],
+      "reason": "Existing revised extractor accepts these radii; original run evidence uses a different legacy pipeline. No new runs completed."
+    },
+    "r1_3": {
+      "status": "component",
+      "radii": [
+        1,
+        3
+      ],
+      "reason": "Existing revised extractor accepts these radii; original run evidence uses a different legacy pipeline. No new runs completed."
+    },
+    "r2_3": {
+      "status": "component",
+      "radii": [
+        2,
+        3
+      ],
+      "reason": "Existing revised extractor accepts these radii; original run evidence uses a different legacy pipeline. No new runs completed."
+    },
+    "r1_2_3": {
+      "status": "component",
+      "radii": [
+        1,
+        2,
+        3
+      ],
+      "reason": "Existing revised extractor accepts these radii; original run evidence uses a different legacy pipeline. No new runs completed."
+    }
+  },
+  "stage": {
+    "M1": {
+      "status": "component",
+      "hms_stage": 2,
+      "cbam_stage": 4,
+      "reason": "Existing revised PaperMTANet M1-M4 implementation."
+    },
+    "M2": {
+      "status": "component",
+      "hms_stage": 3,
+      "cbam_stage": 4,
+      "reason": "Existing revised PaperMTANet M1-M4 implementation."
+    },
+    "M3": {
+      "status": "component",
+      "hms_stage": 3,
+      "cbam_stage": 3,
+      "reason": "Existing revised PaperMTANet M1-M4 implementation."
+    },
+    "M4": {
+      "status": "component",
+      "hms_stage": 2,
+      "cbam_stage": 3,
+      "reason": "Existing revised PaperMTANet M1-M4 implementation."
+    }
+  },
+  "profile": {
+    "mtanet": {
+      "status": "historical",
+      "reason": "Archived Scheme C used unmasked feature cache; mask=False in manifest and run script. Requires corresponding externally supplied features."
+    },
+    "resnet34": {
+      "status": "historical",
+      "reason": "Archived Scheme C used unmasked feature cache; mask=False in manifest and run script. Requires corresponding externally supplied features."
+    }
+  }
+}
