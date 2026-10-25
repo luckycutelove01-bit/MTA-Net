@@ -50,20 +50,20 @@ class SimpleCNNRegressor(BaseUnifiedModel):
         return x
 
 class TorchvisionBackboneRegressor(BaseUnifiedModel):
-    def __init__(self, backbone_name='resnet34', num_classes=5):
+    def __init__(self, backbone_name='resnet34', num_classes=5, pretrained=True):
         super().__init__()
         self.backbone_name = backbone_name
 
         if backbone_name == 'resnet34':
-            self.backbone = tv_models.resnet34(weights=tv_models.ResNet34_Weights.DEFAULT)
+            self.backbone = tv_models.resnet34(weights=tv_models.ResNet34_Weights.DEFAULT if pretrained else None)
             in_dim = self.backbone.fc.in_features
             self.backbone.fc = nn.Linear(in_dim, num_classes)
         elif backbone_name == 'resnet50':
-            self.backbone = tv_models.resnet50(weights=tv_models.ResNet50_Weights.DEFAULT)
+            self.backbone = tv_models.resnet50(weights=tv_models.ResNet50_Weights.DEFAULT if pretrained else None)
             in_dim = self.backbone.fc.in_features
             self.backbone.fc = nn.Linear(in_dim, num_classes)
         elif backbone_name == 'efficientnet':
-            self.backbone = tv_models.efficientnet_b0(weights=tv_models.EfficientNet_B0_Weights.DEFAULT)
+            self.backbone = tv_models.efficientnet_b0(weights=tv_models.EfficientNet_B0_Weights.DEFAULT if pretrained else None)
             in_dim = self.backbone.classifier[-1].in_features
             self.backbone.classifier[-1] = nn.Linear(in_dim, num_classes)
         else:
@@ -77,9 +77,9 @@ class TorchvisionBackboneRegressor(BaseUnifiedModel):
         info['backbone_name'] = self.backbone_name
         return info
 
-def initialize_baseline(name):
+def initialize_baseline(name, pretrained=True):
     if name == 'cnn':
         return SimpleCNNRegressor(num_classes=5)
     if name not in ('resnet34','resnet50','efficientnet'):
         raise ValueError('Available components: cnn, resnet34, resnet50, efficientnet')
-    return TorchvisionBackboneRegressor(name,num_classes=5)
+    return TorchvisionBackboneRegressor(name,num_classes=5,pretrained=pretrained)

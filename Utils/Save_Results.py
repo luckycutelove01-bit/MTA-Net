@@ -18,9 +18,10 @@ def save_rows(path,rows):
     with Path(path).open('w',newline='',encoding='utf-8-sig') as f:
         writer=csv.DictWriter(f,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
 
-def save_checkpoint(path,model,epoch,metrics,config,split):
+def save_checkpoint(path,model,epoch,metrics,config,split,experiment_config=None):
     torch.save({'format':CHECKPOINT_FORMAT,'method_settings':method_settings(),'model_state_dict':model.state_dict(),
-                'epoch':epoch,'validation_metrics':metrics,'run_parameters':vars(config),'split_ids':split},path)
+                'epoch':epoch,'validation_metrics':metrics,'run_parameters':vars(config),'split_ids':split,
+                'experiment_config':experiment_config},path)
 
 def save_evaluation(directory,loss,metrics,prediction,truth,ids):
     directory=Path(directory)

@@ -1,33 +1,12 @@
-
-import torch
-from Experiments import stage_models as pm
-
-class ProfileMTANet(pm.PaperMTANet):
-    """MTA-Net with texture_projection and classifier parameter names.
-    Renaming preserves registration order and numerical operations. No extra learned parameters.
-    """
-    def __init__(self,pretrained=False):
-        super().__init__(pretrained=pretrained)
-        self._modules={({'hms_projection':'texture_projection','prediction_head':'classifier'}.get(k,k)):v for k,v in self._modules.items()}
-    def _after_stage(self,stage,feature,hms_features):
-        if self.hms_stage==stage:feature=self.texture_projection(feature,hms_features)
-        if self.cbam_stage==stage:feature=self.cbam(feature)
-        return feature
-    def forward(self,image,hms_features):
-        x=self.maxpool(self.relu(self.bn1(self.conv1(image))))
-        x=self._after_stage(1,self.layer1(x),hms_features)
-        x=self._after_stage(2,self.layer2(x),hms_features)
-        x=self._after_stage(3,self.layer3(x),hms_features)
-        x=self._after_stage(4,self.layer4(x),hms_features)
-        return self.classifier(torch.flatten(self.avgpool(x),1))
+"""Profile-segment evaluation uses the same models as the main comparison."""
+from Utils.MTA_Net import MTA_Net
+from Utils.Baseline_models import TorchvisionBackboneRegressor
 
 
-class PaperResNet34Baseline(ProfileMTANet):
+class ProfileMTANet(MTA_Net):
+    pass
+
+
+class PaperResNet34Baseline(TorchvisionBackboneRegressor):
     def __init__(self, pretrained=True):
-        super().__init__(pretrained=pretrained)
-        del self.texture_projection
-        del self.cbam
-
-    def _after_stage(self, stage, feature, hms_features):
-        return feature
-
+        super().__init__('resnet34', pretrained=pretrained)

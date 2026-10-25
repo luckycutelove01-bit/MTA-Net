@@ -89,6 +89,12 @@ def encode_raw_code_at(gray: np.ndarray, x: int, y: int, radius: int) -> int:
 def encode_hms_scale(gray: np.ndarray, content_mask: np.ndarray, radius: int,
                      lookup: np.ndarray = UNIFORM_U2_LOOKUP) -> tuple[np.ndarray, np.ndarray]:
     """Encode one HMS scale; invalid/padding centers remain -1 and never enter bins."""
+    return encode_lbp_scale(gray, content_mask, hms_offsets(radius), lookup)
+
+
+def encode_lbp_scale(gray: np.ndarray, content_mask: np.ndarray, offsets,
+                     lookup: np.ndarray = UNIFORM_U2_LOOKUP) -> tuple[np.ndarray, np.ndarray]:
+    """Apply an eight-point neighbourhood with the shared valid-area rules."""
     gray = np.asarray(gray, dtype=np.float32)
     content_mask = np.asarray(content_mask, dtype=bool)
     if gray.shape != content_mask.shape:
@@ -97,7 +103,7 @@ def encode_hms_scale(gray: np.ndarray, content_mask: np.ndarray, radius: int,
     yy, xx = np.indices((height, width))
     valid = content_mask.copy()
     raw_codes = np.zeros((height, width), dtype=np.uint16)
-    for bit, (dx, dy) in enumerate(hms_offsets(radius)):
+    for bit, (dx, dy) in enumerate(offsets):
         neighbor_x = xx + dx
         neighbor_y = yy + dy
         inside = (
@@ -147,6 +153,8 @@ def local_frequency_histogram(code_map: np.ndarray, valid_mask: np.ndarray,
 class UniformHMSLBPFeatureExtractor(nn.Module):
     """Deterministic HMS-LBP descriptor with uniform-u2 bins and a geometric mask."""
 
+    encoding = 'hms'
+
     def __init__(self, grid_size: int = HMS_GRID_SIZE,
                  radii: Sequence[int] = HMS_RADII,
                  num_bins: int = HMS_NUM_BINS):
@@ -158,6 +166,14 @@ class UniformHMSLBPFeatureExtractor(nn.Module):
         self.num_bins = int(num_bins)
         self.feature_dim = self.num_bins * self.grid_size * self.grid_size
 
+    def _encode_scale(self, gray, content_mask, radius):
+        return encode_hms_scale(gray, content_mask, radius)
+
+    def get_config(self):
+        return {'encoding': self.encoding, 'radii': list(self.radii),
+                'grid_size': self.grid_size, 'num_bins': self.num_bins,
+                'mapping': 'uniform-u2', 'mask': True, 'feature_dim': self.feature_dim}
+
     def extract_prepared(self, padded_rgb: Image.Image | np.ndarray,
                          content_mask: np.ndarray,
                          padded_gray: np.ndarray | None = None) -> tuple[np.ndarray, list[str]]:
@@ -167,7 +183,7 @@ class UniformHMSLBPFeatureExtractor(nn.Module):
         scale_features = []
         all_warnings: list[str] = []
         for radius in self.radii:
-            code_map, valid = encode_hms_scale(gray, content_mask, radius)
+            code_map, valid = self._encode_scale(gray, content_mask, radius)
             feature, warnings = local_frequency_histogram(
                 code_map, valid, self.grid_size, self.num_bins
             )

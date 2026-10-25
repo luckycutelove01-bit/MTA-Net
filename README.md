@@ -39,7 +39,8 @@ The model returns five logits; the loss and evaluation functions apply softmax t
 | `verify_dataset.py` | Check dataset IDs, decoding, hashes and split coverage |
 | `tests/test_pipeline.py` | Dataset, texture, metrics, backward-pass and checkpoint tests |
 | `samples/` | Images, measured labels and [dataset documentation](samples/README.md) |
-| `Experiments/` | [Additional component configurations and statistics](Experiments/README.md) |
+| `Experiments/` | [Model comparison, ablation, encoding, radius, stage and grouped training/evaluation](Experiments/README.md) |
+| `docs/METHODS.md` | [Manuscript-to-code mapping](docs/METHODS.md) |
 | `SOURCE_MANIFEST.json` | SHA256 inventory of distributed source files |
 
 ## Environment
@@ -112,7 +113,7 @@ IDs include the image extension, for example `wh1-001.tif`. Numeric values are m
 | Loss | CDF/L1/cosine weights 0.6/0.3/0.1; entropy coefficient 0.6 |
 | Model seeds | 21,42,63,84,105 |
 
-Colour jitter affects the RGB branch only. Validation/test preprocessing is deterministic. No geometric augmentation is applied. Singleton training batches are omitted for BatchNorm; shuffling changes with the epoch.
+Colour jitter affects the RGB branch only. Validation/test preprocessing is deterministic. No geometric augmentation is applied. A singleton training tail is rebalanced into non-singleton batches for BatchNorm, retaining every training sample; shuffling changes with the epoch.
 
 ## Train MTA-Net
 
@@ -193,7 +194,7 @@ python train_MTA_Net.py --split Experiments/profile_split_C.json --seed 21 --out
 python test_MTA_Net.py --checkpoint results/profile_seed21/best_checkpoint.pt --split Experiments/profile_split_C.json --output results/profile_test_seed21
 ```
 
-[Experiments/README.md](Experiments/README.md) documents model comparison, ablation, LBP encoding, radius and insertion-stage components. The catalog states their implementation settings. The root training/testing scripts instantiate `Utils/MTA_Net.py`.
+[Experiments/README.md](Experiments/README.md) documents complete training, checkpoint evaluation and five-seed summary commands for comparisons, ablations, LBP encodings, radii, insertion stages and profile validation. Neural configurations share the root training/loss/metric functions; forests are fitted on training IDs only. The root training/testing scripts instantiate the default `Utils/MTA_Net.py`.
 
 ---
 
@@ -234,7 +235,7 @@ RGB分支保持宽高比缩放并灰色填充至224×224，使用ImageNet归一�
 ## Code Checks
 
 ```bash
-python -m unittest tests.test_pipeline -v
+python -m unittest discover -s tests -v
 ```
 
-These checks exercise data integrity, both splits, padding masks, colour/texture separation, metric formulas, backpropagation and checkpoint loading.
+These checks exercise data integrity, both splits, all neural experiment forward passes, shared model configurations, padding masks, colour/texture separation, metric formulas, backpropagation and checkpoint loading.

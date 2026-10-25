@@ -6,7 +6,7 @@
     },
     {
       "path": "Datasets/data_loader.py",
-      "sha256": "e896883eeafb18d31db71d45fa01292e05bdbf89cf4aac294969fdbd862fe743"
+      "sha256": "5ebe7b225e696f4093e47854e5f35ec221817c72c0751493a97b2357bf37b6da"
     },
     {
       "path": "Datasets/read_labels.py",
@@ -18,27 +18,31 @@
     },
     {
       "path": "Experiments/__main__.py",
-      "sha256": "a2ae9be31c7e03e5e62aeb5b2624fb8e85157317708edb0bb53876b541e330e2"
+      "sha256": "a2a85d2929ab7ece8a0f29d7888a7fad6c3d6fb4f9e5916fc465f3a785c2cf74"
     },
     {
       "path": "Experiments/comparison_models.py",
-      "sha256": "df00a412e655c0643bc1c6aa2a7afbf8f915034ad315fb0c73cc34ef860fa34e"
+      "sha256": "a922fe77551b0128d36d84f944ff11ec95028734953847d6beb257171e8f9658"
     },
     {
       "path": "Experiments/factory.py",
-      "sha256": "c8cfdf6e4e3a7eaba5ea6adb2f2ad93941c5b5498ecbfef8cdc3804e86b10775"
+      "sha256": "11520114960290ae23eca5e27fdb53924d15ba262a45a38f446bb5dae21a3b3a"
     },
     {
       "path": "Experiments/profile_models.py",
-      "sha256": "b237f797eca6465a2b4ca8bd4c25cc538308a8780fe2386aac6afa61155f1919"
+      "sha256": "eb567fa5d3f1f96b006c7e52a0776c8103530de03f1c15dad7f33f6876e39a1b"
     },
     {
       "path": "Experiments/rf_models.py",
-      "sha256": "f5de7f4af46b62a610cfc58b09abb2eb2a5942e777da5be48ea635dab8961a1e"
+      "sha256": "30d231199fd85f8a2532f802f509780f9a8eda2a562296d13ec93ba943be7ceb"
+    },
+    {
+      "path": "Experiments/runner.py",
+      "sha256": "96a8571cd171a09b366512a79e901884598d455732a1d24475a1be4829681929"
     },
     {
       "path": "Experiments/stage_models.py",
-      "sha256": "202eb755c418454fd787e7c7fb49089a5497cccf1985f24c6f2a1a1461e554c9"
+      "sha256": "e6b62eba610b956915fa015dfe2490f7fc469218b79bd860ba518635bd254b0d"
     },
     {
       "path": "Experiments/statistics.py",
@@ -46,7 +50,7 @@
     },
     {
       "path": "Experiments/texture_encodings.py",
-      "sha256": "a1921fc8938bb9bb241697d18f05396ae0943b5c1b2e96ee76269f7a25883cf2"
+      "sha256": "65fcb592f42f7805f3987e0bad02c077a595b88edbecb6e2db7abc428bf4377a"
     },
     {
       "path": "Parameters.py",
@@ -54,11 +58,11 @@
     },
     {
       "path": "Prepare_Data.py",
-      "sha256": "4f27f9b6855e404ec4a0716db45c7b037a0ce9b4aab6cf3bf591711537853683"
+      "sha256": "b0e510a1446039615b7fe5633699c6987e1dee335bded961e76341946013a729"
     },
     {
       "path": "Utils/Baseline_models.py",
-      "sha256": "514ec33bd12777230cb0550bf13a600c5500fac296c9895dcc58f1041bc376fb"
+      "sha256": "15e69426aae6c4f9e6b619c0d310500f2793302c613e1795d99142a81d2edc15"
     },
     {
       "path": "Utils/CBAM.py",
@@ -66,19 +70,19 @@
     },
     {
       "path": "Utils/HMS_LBP.py",
-      "sha256": "febd09953fbe75455d8a71e3ed2868195391213cfe4543f1f98bbceec2130528"
+      "sha256": "38a9e1c5680cf3542e321005d2d382a2c0a274196e2f8799b3e5106c765d709c"
     },
     {
       "path": "Utils/MTA_Net.py",
-      "sha256": "73367dd559dfe2b40753f3f8755ef47f343b3d02fca14ae46e7391998ae8f371"
+      "sha256": "3cfda3d05c9ae8b6c45e7c30d176c3699998890b600cfa7fead8cc2cbad0bb27"
     },
     {
       "path": "Utils/Network_functions.py",
-      "sha256": "7b7bc0b5a6bb12c92d5c9ba9b54f3916bbb291bd1c56255daf1465f2c52c9651"
+      "sha256": "1ccecc7e401825f32e199fd10cd03c6451750855afee1f583af490929b9fe25b"
     },
     {
       "path": "Utils/Save_Results.py",
-      "sha256": "87fa8f8b3c93dacaa14ac6c6c6dbdb45688365ba8d9a90e2f5a9f9b55e4d1112"
+      "sha256": "e440902cfd91faf3a5b8cb2ced3d351a81afc9b7c8bd03ffffb8beae308e20cf"
     },
     {
       "path": "Utils/Texture_Injection.py",
@@ -97,8 +101,12 @@
       "sha256": "2acfde1209f3dc5d776c06e51ff4f67d918a41478e93d5afebe3c8d27815dbed"
     },
     {
+      "path": "tests/test_experiments.py",
+      "sha256": "0616056edf6a6c63229558a8a3726197f7a0890a59f250b46cac1ccf422af8e4"
+    },
+    {
       "path": "tests/test_pipeline.py",
-      "sha256": "5cdde66bf48c31ef331099c687ba8de5d402b814c438771d297a6b18752527cb"
+      "sha256": "3a55f9ed956ff3bd9c7a30418eddb1ba1d7de4dcb0f60aaf1e17682cbd275a9d"
     },
     {
       "path": "train_MTA_Net.py",

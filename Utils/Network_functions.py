@@ -72,13 +72,14 @@ def evaluate(model: nn.Module, loader: DataLoader, criterion: nn.Module, device:
     for images, hms, target, ids in loader:
         images, hms, target = images.to(device), hms.to(device), target.to(device)
         logits = model(images, hms)
-        losses.append(float(criterion(logits, target).item()))
+        losses.append((float(criterion(logits, target).item()), len(ids)))
         predictions.append(torch.softmax(logits, 1).cpu().numpy())
         targets.append(target.cpu().numpy())
         sample_ids.extend(ids)
     prediction = np.concatenate(predictions)
     truth = np.concatenate(targets)
-    return float(np.mean(losses)), distribution_metrics(truth, prediction), prediction, truth, sample_ids
+    mean_loss = sum(loss * count for loss, count in losses) / sum(count for _, count in losses)
+    return float(mean_loss), distribution_metrics(truth, prediction), prediction, truth, sample_ids
 
 
 def select_device(name='auto'):
@@ -93,23 +94,33 @@ def load_checkpoint(path,device='cpu'):
         raise ValueError(f'Expected checkpoint format {CHECKPOINT_FORMAT!r}')
     if json.dumps(checkpoint.get('method_settings'),sort_keys=True)!=json.dumps(method_settings(),sort_keys=True):
         raise ValueError('Checkpoint method settings differ from this code')
-    model=initialize_model(pretrained=False).to(device)
+    experiment=checkpoint.get('experiment_config')
+    if experiment is None:
+        model=initialize_model(pretrained=False).to(device)
+    else:
+        from Experiments.factory import build_components
+        model,texture,_=build_components(experiment['family'],experiment['variant'],pretrained=False)
+        texture_settings=texture.get_config() if texture is not None else None
+        if texture_settings!=experiment['texture']:
+            raise ValueError('Checkpoint texture settings differ from the selected experiment')
+        model=model.to(device)
     model.load_state_dict(checkpoint['model_state_dict'],strict=True)
     return model,checkpoint
 
-def train_model(config,loaders,split):
+def train_model(config,loaders,split,model=None,experiment_config=None):
     """One seed, no seed loop. Best validation chi-square, then validation MAE."""
     if config.epochs<1:raise ValueError('epochs must be positive')
-    set_seed(config.seed)
+    if model is None:set_seed(config.seed)
     device=select_device(config.device)
     out=new_output_directory(config.output)
-    model=initialize_model(pretrained=True).to(device)
+    model=(initialize_model(pretrained=True) if model is None else model).to(device)
     criterion=PaperDistributionLoss()
     optimizer=torch.optim.AdamW(model.parameters(),lr=config.learning_rate,weight_decay=config.weight_decay)
     scheduler=torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,mode='min',factor=config.scheduler_factor,patience=config.scheduler_patience)
     save_json(out/'run_parameters.json',vars(config))
     save_json(out/'method_settings.json',method_settings())
     save_json(out/'split_ids.json',split)
+    if experiment_config is not None:save_json(out/'experiment_config.json',experiment_config)
     best=(float('inf'),float('inf'));history=[]
     for epoch in range(1,config.epochs+1):
         model.train();losses=[]
@@ -126,7 +137,7 @@ def train_model(config,loaders,split):
         scheduler.step(val_loss)
         key=(metrics['chi_square'],metrics['mae'])
         if key[0]<best[0]-1e-12 or (abs(key[0]-best[0])<=1e-12 and key[1]<best[1]):
-            best=key;save_checkpoint(out/'best_checkpoint.pt',model,epoch,metrics,config,split)
+            best=key;save_checkpoint(out/'best_checkpoint.pt',model,epoch,metrics,config,split,experiment_config)
         history.append({'epoch':epoch,'train_loss':float(np.mean(losses)),'val_loss':val_loss,
                         'val_chi_square':key[0],'val_mae':key[1],'val_nrmse_pct':metrics['nrmse'],'lr':optimizer.param_groups[0]['lr']})
         save_rows(out/'training_history.csv',history)
@@ -137,14 +148,17 @@ def train_model(config,loaders,split):
     save_json(out/'best_epoch.json',{'epoch':checkpoint['epoch']})
     return metrics
 
-def test_model(checkpoint_path,config,loader,split):
+def test_model(checkpoint_path,config,loader,split,experiment_config=None):
     device=select_device(config.device)
     model,checkpoint=load_checkpoint(checkpoint_path,device)
+    if checkpoint.get('experiment_config')!=experiment_config:
+        raise ValueError('Use the experiment evaluation entry point for this checkpoint and texture configuration')
     if checkpoint['split_ids']['test']!=split['test']:
         raise ValueError('Test membership/order differs from the checkpoint manifest')
     out=new_output_directory(config.output)
     loss,metrics,prediction,truth,ids=evaluate(model,loader,PaperDistributionLoss(),device)
     save_evaluation(out,loss,metrics,prediction,truth,ids)
-    save_json(out/'evaluation_source.json',{'checkpoint':str(Path(checkpoint_path).resolve()),'parameters':vars(config)})
+    save_json(out/'evaluation_source.json',{'checkpoint':str(Path(checkpoint_path).resolve()),'parameters':vars(config),
+                                         'experiment_config':checkpoint.get('experiment_config')})
     return metrics
 

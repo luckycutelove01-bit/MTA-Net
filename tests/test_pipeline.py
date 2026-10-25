@@ -99,7 +99,8 @@ class PipelineTests(unittest.TestCase):
         sampler = SafeBatchSampler(range(145), 8, seed=21)
         first, second = list(sampler), list(sampler)
         self.assertEqual(len(first), len(sampler))
-        self.assertEqual(sum(map(len, first)), 144)
+        self.assertEqual(sum(map(len, first)), 145)
+        self.assertEqual(len({i for batch in first for i in batch}), 145)
         self.assertTrue(all(len(batch) >= 2 for batch in first))
         self.assertNotEqual(first, second)
 

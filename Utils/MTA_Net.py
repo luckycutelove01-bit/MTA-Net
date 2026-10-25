@@ -12,10 +12,10 @@ class MTA_Net(nn.Module):
     def __init__(self, num_classes: int = NUM_CLASSES, hms_stage: int = HMS_STAGE,
                  cbam_stage: int = CBAM_STAGE, pretrained: bool = True):
         super().__init__()
-        if hms_stage != HMS_STAGE:
-            raise ValueError("The main MTA-Net configuration applies HMS after Stage2")
-        if cbam_stage != CBAM_STAGE:
-            raise ValueError("The main MTA-Net configuration applies CBAM after Stage4")
+        if hms_stage not in (2, 3):
+            raise ValueError("HMS stage must be 2 or 3")
+        if cbam_stage not in (3, 4):
+            raise ValueError("CBAM stage must be 3 or 4")
         self.hms_stage = int(hms_stage)
         self.cbam_stage = int(cbam_stage)
         weights = tv_models.ResNet34_Weights.DEFAULT if pretrained else None

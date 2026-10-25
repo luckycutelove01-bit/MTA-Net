@@ -6,27 +6,31 @@
     },
     {
       "path": "Experiments/__main__.py",
-      "sha256": "a2ae9be31c7e03e5e62aeb5b2624fb8e85157317708edb0bb53876b541e330e2"
+      "sha256": "a2a85d2929ab7ece8a0f29d7888a7fad6c3d6fb4f9e5916fc465f3a785c2cf74"
     },
     {
       "path": "Experiments/comparison_models.py",
-      "sha256": "df00a412e655c0643bc1c6aa2a7afbf8f915034ad315fb0c73cc34ef860fa34e"
+      "sha256": "a922fe77551b0128d36d84f944ff11ec95028734953847d6beb257171e8f9658"
     },
     {
       "path": "Experiments/factory.py",
-      "sha256": "c8cfdf6e4e3a7eaba5ea6adb2f2ad93941c5b5498ecbfef8cdc3804e86b10775"
+      "sha256": "11520114960290ae23eca5e27fdb53924d15ba262a45a38f446bb5dae21a3b3a"
     },
     {
       "path": "Experiments/profile_models.py",
-      "sha256": "b237f797eca6465a2b4ca8bd4c25cc538308a8780fe2386aac6afa61155f1919"
+      "sha256": "eb567fa5d3f1f96b006c7e52a0776c8103530de03f1c15dad7f33f6876e39a1b"
     },
     {
       "path": "Experiments/rf_models.py",
-      "sha256": "f5de7f4af46b62a610cfc58b09abb2eb2a5942e777da5be48ea635dab8961a1e"
+      "sha256": "30d231199fd85f8a2532f802f509780f9a8eda2a562296d13ec93ba943be7ceb"
+    },
+    {
+      "path": "Experiments/runner.py",
+      "sha256": "96a8571cd171a09b366512a79e901884598d455732a1d24475a1be4829681929"
     },
     {
       "path": "Experiments/stage_models.py",
-      "sha256": "202eb755c418454fd787e7c7fb49089a5497cccf1985f24c6f2a1a1461e554c9"
+      "sha256": "e6b62eba610b956915fa015dfe2490f7fc469218b79bd860ba518635bd254b0d"
     },
     {
       "path": "Experiments/statistics.py",
@@ -34,7 +38,7 @@
     },
     {
       "path": "Experiments/texture_encodings.py",
-      "sha256": "a1921fc8938bb9bb241697d18f05396ae0943b5c1b2e96ee76269f7a25883cf2"
+      "sha256": "65fcb592f42f7805f3987e0bad02c077a595b88edbecb6e2db7abc428bf4377a"
     }
   ]
 }

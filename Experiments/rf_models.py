@@ -48,7 +48,7 @@ def glcm_features(gray, levels=16):
     return np.asarray(feats, dtype=np.float32)
 
 
-def wavelet_like_features(gray):
+def haar_features(gray):
     feats = []
     current = gray.astype(np.float32)
     for _ in range(3):
@@ -85,15 +85,16 @@ def build_rf(seed=21):
         random_state=int(seed), n_jobs=-1))
 
 
-def rf_features(gray, kind):
+def rf_features(gray, kind, content_mask=None):
     """Accept a supplied float grayscale array in [0,1]; no file I/O."""
     if kind == 'glcm_rf':
         return glcm_features(gray)
     if kind == 'wavelet_rf':
-        return wavelet_like_features(gray)
+        return haar_features(gray)
     if kind == 'lbp_rf':
-        import torch
-        from Experiments.texture_encodings import LBPFeatureExtractor
-        x = torch.as_tensor(gray, dtype=torch.float32)[None, None]
-        return LBPFeatureExtractor()(x)[0].cpu().numpy()
+        from Experiments.texture_encodings import TraditionalLBPFeatureExtractor
+        mask = np.ones_like(gray, dtype=bool) if content_mask is None else content_mask
+        rgb = np.repeat(gray[..., None], 3, axis=2)
+        feature, _ = TraditionalLBPFeatureExtractor().extract_prepared(rgb, mask, gray * 255.0)
+        return feature
     raise ValueError(kind)
