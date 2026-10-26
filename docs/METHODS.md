@@ -23,7 +23,7 @@ The five predicted grain-size fractions are proportions in [0,1]. Metric normali
 
 ## Explicit Implementation Settings
 
-The code keeps the prediction head shown in Figure 2: 512 → 512 → 256 → 5, with BatchNorm/ReLU/dropout after the first two linear layers. The texture projection uses 944 → 32 → 128 for Stage2, gamma starts at 0.1, and CBAM uses reduction 16 and spatial kernel 7. Current architecture sizes can be obtained from `get_model_info()` or by summing model parameters.
+The code keeps the prediction head shown in Figure 2: 512 → 512 → 256 → 5, with BatchNorm/ReLU/dropout after the first two linear layers. The texture projection uses 944 → 32 → 128 for Stage2, gamma starts at 0.1, and CBAM uses reduction 16 and spatial kernel 7. The default MTA-Net contains 21,750,760 parameters (21.750760 M). Architecture sizes are returned by `get_model_info()` and can also be obtained by summing model parameters.
 
 The plain ResNet34 reference and all module-bearing ResNet34 ablations use the same Figure 2 head: 512 → 512 → 256 → 5, with BatchNorm, ReLU and dropout (0.3/0.2) after the first two linear layers. The head is constructed by the shared `build_prediction_head()` function in `Utils/MTA_Net.py`. The same plain ResNet34 reference is used in the comparison, ablation and profile families. Ablations switch only texture modulation and/or CBAM. All models return logits; the shared loss and evaluation functions apply softmax. The encoding, radius and insertion-stage comparisons each share the same head within their family.
 

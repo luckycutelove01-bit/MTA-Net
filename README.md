@@ -113,6 +113,8 @@ IDs include the image extension, for example `wh1-001.tif`. Numeric values are m
 | Loss | CDF/L1/cosine weights 0.6/0.3/0.1; entropy coefficient 0.6 |
 | Model seeds | 21,42,63,84,105 |
 
+The plain ResNet34 baseline and every ResNet34 ablation use the same MTA-Net prediction head, including BatchNorm, ReLU and dropout (0.3/0.2). Comparison, ablation and profile validation share this ResNet34 baseline.
+
 Colour jitter affects the RGB branch only. Validation/test preprocessing is deterministic. No geometric augmentation is applied. A singleton training tail is rebalanced into non-singleton batches for BatchNorm, retaining every training sample; shuffling changes with the epoch.
 
 ## Train MTA-Net
@@ -224,6 +226,8 @@ RGB分支保持宽高比缩放并灰色填充至224×224，使用ImageNet归一�
 
 纹理特征在Stage2后注入，CBAM在Stage4后应用。训练采用AdamW、batch size 8、50轮、学习率0.0005，按验证χ²选取最佳权重，验证MAE用于并列比较。损失权重、调度器和其他设置见上方配置表及 `Parameters.py`。
 
+普通ResNet34及所有ResNet34消融配置共用MTA-Net的512 → 512 → 256 → 5预测头，BatchNorm、ReLU和Dropout（0.3/0.2）设置相同。比较、消融和分组验证使用同一ResNet34基准实现。
+
 ## 文件与输出
 
 数据读取位于 `Datasets/read_labels.py`，批处理位于 `Datasets/data_loader.py`，模型位于 `Utils/MTA_Net.py`，损失、训练与评价指标位于 `Utils/Network_functions.py`。完整文件功能见上方表格。
@@ -232,10 +236,10 @@ RGB分支保持宽高比缩放并灰色填充至224×224，使用ImageNet归一�
 
 区段分组命令及其他实验组件说明见英文部分和 [Experiments/README.md](Experiments/README.md)，数据说明见 [samples/README.md](samples/README.md)。
 
-## Code Checks
+## Automated Tests
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-These checks exercise data integrity, both splits, all neural experiment forward passes, shared model configurations, padding masks, colour/texture separation, metric formulas, backpropagation and checkpoint loading.
+The test suite covers data integrity, both splits, all neural experiment forward passes, shared prediction heads, padding masks, colour/texture separation, metric formulas, backpropagation and checkpoint loading. All 18 tests passed with PyTorch 2.8.0 CPU and torchvision 0.23.0.

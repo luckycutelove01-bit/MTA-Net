@@ -29,7 +29,7 @@
     },
     "resnet34": {
       "status": "ready",
-      "reason": "ImageNet-initialized ResNet34 with a five-output linear head.",
+      "reason": "ImageNet-initialized ResNet34 with the shared MTA-Net head: 512 -> 512 -> 256 -> 5, BatchNorm, ReLU and dropout 0.3/0.2.",
       "section": "3.4"
     },
     "resnet50": {
@@ -56,27 +56,27 @@
   "ablation": {
     "resnet34": {
       "status": "ready",
-      "reason": "Same ImageNet-initialized ResNet34 reference and five-output linear head as Table 3.",
+      "reason": "Plain ImageNet-initialized ResNet34 with the same 512 -> 512 -> 256 -> 5 head as MTA-Net; no texture modulation or CBAM.",
       "section": "3.5"
     },
     "resnet34_lbp": {
       "status": "ready",
-      "reason": "ImageNet ResNet34 with the Figure 2 prediction head and the selected texture/CBAM modules.",
+      "reason": "ImageNet ResNet34 with the shared MTA-Net prediction head and standard-LBP modulation after Stage2; no CBAM.",
       "section": "3.5"
     },
     "resnet34_hms": {
       "status": "ready",
-      "reason": "ImageNet ResNet34 with the Figure 2 prediction head and the selected texture/CBAM modules.",
+      "reason": "ImageNet ResNet34 with the shared MTA-Net prediction head and HMS-LBP modulation after Stage2; no CBAM.",
       "section": "3.5"
     },
     "resnet34_cbam": {
       "status": "ready",
-      "reason": "ImageNet ResNet34 with the Figure 2 prediction head and the selected texture/CBAM modules.",
+      "reason": "ImageNet ResNet34 with the shared MTA-Net prediction head and CBAM after Stage4; no texture modulation.",
       "section": "3.5"
     },
     "mtanet": {
       "status": "ready",
-      "reason": "ImageNet ResNet34 with the Figure 2 prediction head and the selected texture/CBAM modules.",
+      "reason": "Complete MTA-Net with the shared prediction head, HMS-LBP modulation after Stage2 and CBAM after Stage4.",
       "section": "3.5"
     }
   },
