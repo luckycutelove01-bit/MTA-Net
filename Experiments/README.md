@@ -14,7 +14,7 @@ All neural configurations use the common data loader, RGB-only colour augmentati
 ## Shared Method
 
 - ImageNet initialization is used for the ResNet/EfficientNet backbones; the shallow CNN is randomly initialized.
-- The plain ResNet34 reference is shared by comparisons, ablations and profile validation. Module-bearing ResNet34 configurations use the prediction head shown in Figure 2 and select Stage2 texture modulation and/or Stage4 CBAM. The complete ablation has the same parameters and forward operations as MTA-Net.
+- The plain ResNet34 reference and every ResNet34 ablation share the Figure 2 prediction head (512 → 512 → 256 → 5), including BatchNorm, ReLU and dropout (0.3/0.2). Ablations change only Stage2 texture modulation and/or Stage4 CBAM. Comparisons, ablations and profile validation use the same plain ResNet34 reference. All configurations return logits for the shared loss/evaluation softmax. The complete ablation has the same parameters and forward operations as MTA-Net.
 - LBP encodings share original-luminance preprocessing, a valid-area mask, uniform-pattern mapping and 4×4 local histograms. Standard LBP uses radius 1; horizontal/vertical/isotropic multiscale descriptors average radii {1,2}. Rotation invariance uses the minimum circular rotation of the eight-bit code before uniform lookup, retaining the common 59-bin layout. Neighbourhood/rotation/scale choices are recorded by the extractor configuration.
 - The encoding comparison uses Stage2 texture modulation without CBAM; ResNet34+HMS is its primary comparator.
 - M1=(2,4), M2=(3,4), M3=(3,3), M4=(2,3), with tuples denoting HMS/CBAM stages. M1 shares the main MTA-Net implementation.
@@ -75,6 +75,6 @@ The summarizer checks model seeds, identical split memberships and identical exp
 
 ## 中文说明
 
-所有神经网络实验共用数据加载、RGB颜色增强、组合损失、优化器、验证选模和评价指标。对比、消融和分组验证共用同一ResNet34基准；带模块的ResNet34配置使用图2所示预测头，完整消融模型与主模型一致。编码实验在无CBAM的同一纹理调制模型中比较；半径与阶段实验只改变相应配置；分组验证复用主实验模型，默认使用143/20/39划分。随机森林仅在训练子集拟合，LBP+RF使用标准LBP。
+所有神经网络实验共用数据加载、RGB颜色增强、组合损失、优化器、验证选模和评价指标。普通ResNet34及所有ResNet34消融配置均使用与MTA-Net相同的图2预测头（512 → 512 → 256 → 5），包括相同的BatchNorm、ReLU和Dropout（0.3/0.2）；消融仅改变Stage2纹理调制和/或Stage4 CBAM。对比、消融和分组验证共用同一ResNet34基准，输出均为logits，由共用损失和评价流程执行Softmax；完整消融模型与主模型一致。编码实验在无CBAM的同一纹理调制模型中比较；半径与阶段实验只改变相应配置；分组验证复用主实验模型，默认使用143/20/39划分。随机森林仅在训练子集拟合，LBP+RF使用标准LBP。
 
 以上命令涵盖训练、权重测试和五种子汇总。各配置的输出均由实际运行产生，模型和纹理设置写入权重及JSON记录。

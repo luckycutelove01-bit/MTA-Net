@@ -5,6 +5,20 @@ from Parameters import HMS_FEATURE_DIM,HMS_RADII,HMS_STAGE,CBAM_STAGE,CBAM_REDUC
 from Utils.Texture_Injection import HMSProjection
 from Utils.CBAM import StageCBAM
 
+def build_prediction_head(num_classes: int = NUM_CLASSES) -> nn.Sequential:
+    """Figure 2 head shared by MTA-Net and the ResNet34 experiment variants."""
+    return nn.Sequential(
+        nn.Linear(512, 512),
+        nn.BatchNorm1d(512),
+        nn.ReLU(inplace=True),
+        nn.Dropout(DROPOUT[0]),
+        nn.Linear(512, 256),
+        nn.BatchNorm1d(256),
+        nn.ReLU(inplace=True),
+        nn.Dropout(DROPOUT[1]),
+        nn.Linear(256, num_classes),
+    )
+
 class MTA_Net(nn.Module):
 
     STAGE_CHANNELS = {1: 64, 2: 128, 3: 256, 4: 512}
@@ -32,17 +46,7 @@ class MTA_Net(nn.Module):
         self.avgpool = backbone.avgpool
         self.hms_projection = HMSProjection(self.STAGE_CHANNELS[self.hms_stage])
         self.cbam = StageCBAM(self.STAGE_CHANNELS[self.cbam_stage], reduction_ratio=CBAM_REDUCTION)
-        self.prediction_head = nn.Sequential(
-            nn.Linear(512, 512),
-            nn.BatchNorm1d(512),
-            nn.ReLU(inplace=True),
-            nn.Dropout(DROPOUT[0]),
-            nn.Linear(512, 256),
-            nn.BatchNorm1d(256),
-            nn.ReLU(inplace=True),
-            nn.Dropout(DROPOUT[1]),
-            nn.Linear(256, num_classes),
-        )
+        self.prediction_head = build_prediction_head(num_classes)
 
     def _after_stage(self, stage: int, feature: torch.Tensor,
                      hms_features: torch.Tensor) -> torch.Tensor:

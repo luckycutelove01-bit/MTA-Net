@@ -9,6 +9,7 @@ from PIL import Image
 import torch
 
 from Experiments.factory import build_components, catalog
+from Experiments.comparison_models import ResNet34Ablation
 from Experiments.runner import experiment_settings, rf_matrix
 from Experiments.texture_encodings import (
     TraditionalLBPFeatureExtractor, RotationInvariantLBPFeatureExtractor,
@@ -66,6 +67,62 @@ class ExperimentTests(unittest.TestCase):
             self.assertEqual(set(baseline.state_dict()), set(model.state_dict()))
             for key, value in baseline.state_dict().items():
                 torch.testing.assert_close(value, model.state_dict()[key], rtol=0, atol=0)
+
+    def test_all_ablation_heads_match_main(self):
+        main = MTA_Net(pretrained=False)
+        main.prediction_head.eval()
+        features = torch.randn(2, 512)
+        with torch.no_grad():
+            expected = main.prediction_head(features)
+        for variant in catalog()['ablation']:
+            with self.subTest(variant=variant):
+                model, _, _ = build_components('ablation', variant, pretrained=False)
+                head = (model.backbone.fc if variant == 'resnet34'
+                        else model.prediction_head)
+                self.assertEqual(repr(head), repr(main.prediction_head))
+                head.load_state_dict(main.prediction_head.state_dict(), strict=True)
+                head.eval()
+                with torch.no_grad():
+                    torch.testing.assert_close(head(features), expected, rtol=0, atol=0)
+                del model
+
+    def test_plain_resnet34_matches_disabled_modules(self):
+        baseline, _, _ = build_components('ablation', 'resnet34', pretrained=False)
+        disabled = ResNet34Ablation(False, False, pretrained=False)
+        aligned = {}
+        for key, value in baseline.backbone.state_dict().items():
+            aligned['prediction_head.' + key[3:] if key.startswith('fc.') else key] = value
+        disabled.load_state_dict(aligned, strict=True)
+        image = torch.randn(2, 3, 224, 224)
+        features = torch.randn(2, 944)
+        baseline.eval()
+        disabled.eval()
+        with torch.no_grad():
+            torch.testing.assert_close(baseline(image), disabled(image, features), rtol=0, atol=0)
+        baseline.train()
+        target = torch.softmax(torch.randn(2, 5), dim=1)
+        loss = PaperDistributionLoss()(baseline(image), target)
+        loss.backward()
+        for index in (0, 4, 8):
+            gradient = baseline.backbone.fc[index].weight.grad
+            self.assertIsNotNone(gradient)
+            self.assertTrue(torch.isfinite(gradient).all())
+            self.assertGreater(float(gradient.abs().sum()), 0)
+
+    def test_plain_resnet34_checkpoint_roundtrip(self):
+        image = torch.randn(2, 3, 224, 224)
+        split = read_split(ROOT / 'Datasets/fixed_split_seed21.json')
+        for family in ('comparison', 'ablation', 'profile'):
+            with self.subTest(family=family), tempfile.TemporaryDirectory() as directory:
+                model, texture, _ = build_components(family, 'resnet34', pretrained=False)
+                settings = experiment_settings(family, 'resnet34', texture)
+                file = Path(directory) / 'model.pt'
+                save_checkpoint(file, model, 1, {}, RunParameters(), split, settings)
+                restored, _ = load_checkpoint(file)
+                model.eval()
+                restored.eval()
+                with torch.no_grad():
+                    torch.testing.assert_close(restored(image), model(image), rtol=0, atol=0)
 
     def test_uniform_mapping_and_padding_for_all_encodings(self):
         image = Image.fromarray(np.full((60, 100, 3), 70, dtype=np.uint8))

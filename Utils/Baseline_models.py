@@ -2,6 +2,7 @@
 import torch
 import torch.nn as nn
 from torchvision import models as tv_models
+from Utils.MTA_Net import build_prediction_head
 
 class BaseUnifiedModel(nn.Module):
     def get_model_info(self):
@@ -56,8 +57,7 @@ class TorchvisionBackboneRegressor(BaseUnifiedModel):
 
         if backbone_name == 'resnet34':
             self.backbone = tv_models.resnet34(weights=tv_models.ResNet34_Weights.DEFAULT if pretrained else None)
-            in_dim = self.backbone.fc.in_features
-            self.backbone.fc = nn.Linear(in_dim, num_classes)
+            self.backbone.fc = build_prediction_head(num_classes)
         elif backbone_name == 'resnet50':
             self.backbone = tv_models.resnet50(weights=tv_models.ResNet50_Weights.DEFAULT if pretrained else None)
             in_dim = self.backbone.fc.in_features
