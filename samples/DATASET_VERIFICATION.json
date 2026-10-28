@@ -1,0 +1,22 @@
+{
+  "image_count": 202,
+  "label_count": 202,
+  "unique_image_hashes": 202,
+  "all_images_decoded": true,
+  "all_image_hashes_match_manifest": true,
+  "row_sum_min_pct": 99.9998,
+  "row_sum_max_pct": 100.00019999999999,
+  "labels_sha256": "b8348128a5d4cdac0000b7491398680ea18e682483fdc36a5df8e94e87ebf552",
+  "split_counts": {
+    "main": {
+      "train": 145,
+      "val": 26,
+      "test": 31
+    },
+    "profile_segments": {
+      "train": 143,
+      "val": 20,
+      "test": 39
+    }
+  }
+}

@@ -1,0 +1,8 @@
+# Dependency versions for the MTA-Net execution environment.
+# Install the torch/torchvision CPU or CUDA build suitable for your machine.
+torch==2.8.0
+torchvision==0.23.0
+numpy==1.26.0
+pandas==2.2.2
+Pillow==12.3.0
+openpyxl==3.1.5
