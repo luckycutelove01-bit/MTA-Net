@@ -34,7 +34,7 @@
     },
     "resnet50": {
       "status": "ready",
-      "reason": "ImageNet-initialized ResNet50 with a five-output linear head.",
+      "reason": "ImageNet-initialized ResNet50 with the same 2048 -> 512 -> 256 -> 5 MLP prediction head as ResNet50-LBP.",
       "section": "3.4"
     },
     "resnet50_lbp": {

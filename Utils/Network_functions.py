@@ -95,6 +95,7 @@ def load_checkpoint(path,device='cpu'):
     if json.dumps(checkpoint.get('method_settings'),sort_keys=True)!=json.dumps(method_settings(),sort_keys=True):
         raise ValueError('Checkpoint method settings differ from this code')
     experiment=checkpoint.get('experiment_config')
+    state_dict = checkpoint['model_state_dict']
     if experiment is None:
         model=initialize_model(pretrained=False).to(device)
     else:
@@ -103,8 +104,14 @@ def load_checkpoint(path,device='cpu'):
         texture_settings=texture.get_config() if texture is not None else None
         if texture_settings!=experiment['texture']:
             raise ValueError('Checkpoint texture settings differ from the selected experiment')
+        if (experiment['variant'] == 'resnet50'
+                and 'prediction_head' not in experiment
+                and 'backbone.fc.weight' in state_dict):
+            # Earlier ResNet50 checkpoints used a single linear prediction layer.
+            out_features, in_features = state_dict['backbone.fc.weight'].shape
+            model.backbone.fc = nn.Linear(in_features, out_features)
         model=model.to(device)
-    model.load_state_dict(checkpoint['model_state_dict'],strict=True)
+    model.load_state_dict(state_dict,strict=True)
     return model,checkpoint
 
 def train_model(config,loaders,split,model=None,experiment_config=None):

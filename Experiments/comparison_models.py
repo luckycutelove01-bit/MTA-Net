@@ -3,6 +3,7 @@ import torch
 from torch import nn
 from torchvision import models as tv_models
 
+from Utils.Baseline_models import build_resnet50_prediction_head
 from Utils.MTA_Net import MTA_Net
 
 
@@ -64,11 +65,7 @@ class ResNet50WithLBP(nn.Module):
                      'layer3', 'layer4', 'avgpool'):
             setattr(self, name, getattr(backbone, name))
         self.lbp_fusion = LBPFusionModule()
-        self.classifier = nn.Sequential(
-            nn.Dropout(0.5), nn.Linear(2048, 512), nn.BatchNorm1d(512),
-            nn.ReLU(inplace=True), nn.Dropout(0.3), nn.Linear(512, 256),
-            nn.ReLU(inplace=True), nn.Dropout(0.2), nn.Linear(256, num_classes),
-        )
+        self.classifier = build_resnet50_prediction_head(backbone.fc.in_features, num_classes)
 
     def forward(self, image, lbp_features):
         x = self.maxpool(self.relu(self.bn1(self.conv1(image))))

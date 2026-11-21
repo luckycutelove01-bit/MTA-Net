@@ -4,6 +4,20 @@ import torch.nn as nn
 from torchvision import models as tv_models
 from Utils.MTA_Net import build_prediction_head
 
+def build_resnet50_prediction_head(in_features=2048, num_classes=5):
+    return nn.Sequential(
+        nn.Dropout(0.5),
+        nn.Linear(in_features, 512),
+        nn.BatchNorm1d(512),
+        nn.ReLU(inplace=True),
+        nn.Dropout(0.3),
+        nn.Linear(512, 256),
+        nn.ReLU(inplace=True),
+        nn.Dropout(0.2),
+        nn.Linear(256, num_classes),
+    )
+
+
 class BaseUnifiedModel(nn.Module):
     def get_model_info(self):
         return {
@@ -61,7 +75,7 @@ class TorchvisionBackboneRegressor(BaseUnifiedModel):
         elif backbone_name == 'resnet50':
             self.backbone = tv_models.resnet50(weights=tv_models.ResNet50_Weights.DEFAULT if pretrained else None)
             in_dim = self.backbone.fc.in_features
-            self.backbone.fc = nn.Linear(in_dim, num_classes)
+            self.backbone.fc = build_resnet50_prediction_head(in_dim, num_classes)
         elif backbone_name == 'efficientnet':
             self.backbone = tv_models.efficientnet_b0(weights=tv_models.EfficientNet_B0_Weights.DEFAULT if pretrained else None)
             in_dim = self.backbone.classifier[-1].in_features

@@ -20,8 +20,11 @@ from Utils.Save_Results import new_output_directory, save_evaluation, save_json
 
 
 def experiment_settings(family, variant, texture):
-    return {'family': family, 'variant': variant,
-            'texture': texture.get_config() if texture is not None else None}
+    settings = {'family': family, 'variant': variant,
+                'texture': texture.get_config() if texture is not None else None}
+    if family == 'comparison' and variant == 'resnet50':
+        settings['prediction_head'] = 'mlp'
+    return settings
 
 
 def rf_matrix(records, kind):
