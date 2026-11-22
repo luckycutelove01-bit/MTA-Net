@@ -18,6 +18,12 @@ The dataset is included: **202 RGB TIFF images and 202 measured label vectors**,
 
 The model returns five logits; the loss and evaluation functions apply softmax to obtain non-negative fractions summing to one. This is composition regression.
 
+## Image dimensions and acquisition
+
+The 202 RGB TIFF files are cropped views of deposit profiles from the laboratory sedimentation experiment. Each crop covers a nominal 20 × 20 mm area on the profile. Before resizing, the crops range from 161 to 423 pixels in width and from 244 to 355 pixels in height. Model preprocessing preserves the aspect ratio and pads the resized image with grey pixels to 224 × 224 pixels.
+
+A Sony α7R digital camera was used at a fixed working distance of approximately 0.5 m, with uniform illumination and similar viewing angles. Rulers were placed below and beside each sampling area to record its spatial position. Each image was matched to a sediment sample collected at the same position. Grain-size distributions were measured by laser diffraction with a Beckman Coulter LS 13 320 particle-size analyser.
+
 ## File Guide
 
 | Path | Function |
@@ -206,6 +212,12 @@ python test_MTA_Net.py --checkpoint results/profile_seed21/best_checkpoint.pt --
 仓库包含 **202张RGB TIFF图像和202行五粒级实测标签**。图像位于 `samples/images/`，编号为 `wh1-001.tif` 至 `wh1-202.tif`。五个标签列依次对应 <100、100–250、250–500、500–1000和1000–2000 μm，单位为体积百分数。加载后按行归一化为体积分数，CSV测量值保持原样。
 
 主实验划分为145/26/31，区段分组划分为143/20/39。两套划分均完整覆盖202个样本，各子集互不重叠。
+
+## 图像尺寸与采集信息
+
+202 张 RGB TIFF 图像裁剪自沉积模拟实验的沉积物剖面，每张裁剪图的标称视野为 20 × 20 mm。缩放前，裁剪图宽度为 161–423 像素，高度为 244–355 像素。模型预处理保持宽高比缩放，再用灰色像素填充至 224 × 224 像素。
+
+图像使用 Sony α7R 数码相机采集，拍摄距离固定在约 0.5 m，光照均匀，拍摄视角相近。每个采样区的下方和侧面布置标尺记录空间位置。图像与同一位置采集的沉积物样品一一对应，粒度分布使用 Beckman Coulter LS 13 320 激光衍射粒度分析仪测定。
 
 ## 快速使用
 
