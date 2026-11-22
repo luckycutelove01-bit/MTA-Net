@@ -1,0 +1,24 @@
+cff-version: "1.2.0"
+message: "If you use the MTA-Net software or dataset, please cite the archived version you used."
+title: "MTA-Net: Grain-size composition prediction from sedimentary simulation images"
+type: software
+authors:
+  - family-names: Shao
+    given-names: Yanlin
+    affiliation: Yangtze University
+  - family-names: Wang
+    given-names: Jiaxuan
+    affiliation: Yangtze University
+  - family-names: Wei
+    given-names: Wei
+    affiliation: Yangtze University
+  - family-names: Hu
+    given-names: Guangming
+    affiliation: Yangtze University
+repository-code: "https://github.com/luckycutelove01-bit/MTA-Net"
+abstract: >-
+  MTA-Net estimates five grain-size volume fractions from sedimentary
+  simulation images. This repository includes the implementation, scripts,
+  202 paired RGB TIFF images and measured grain-size labels. The original
+  code is under the MIT License. The images and measured labels are under
+  CC BY 4.0.
