@@ -24,6 +24,11 @@ The 202 RGB TIFF files are cropped views of deposit profiles from the laboratory
 
 A Sony α7R digital camera was used at a fixed working distance of approximately 0.5 m, with uniform illumination and similar viewing angles. Rulers were placed below and beside each sampling area to record its spatial position. Each image was matched to a sediment sample collected at the same position. Grain-size distributions were measured by laser diffraction with a Beckman Coulter LS 13 320 particle-size analyser.
 
+## Licenses
+
+- Original project code and accompanying software documentation are available under the [MIT License](LICENSE).
+- The 202 RGB TIFF images and their paired measured grain-size labels are available under [CC BY 4.0](samples/LICENSE.md).
+
 ## File Guide
 
 | Path | Function |
@@ -218,6 +223,11 @@ python test_MTA_Net.py --checkpoint results/profile_seed21/best_checkpoint.pt --
 202 张 RGB TIFF 图像裁剪自沉积模拟实验的沉积物剖面，每张裁剪图的标称视野为 20 × 20 mm。缩放前，裁剪图宽度为 161–423 像素，高度为 244–355 像素。模型预处理保持宽高比缩放，再用灰色像素填充至 224 × 224 像素。
 
 图像使用 Sony α7R 数码相机采集，拍摄距离固定在约 0.5 m，光照均匀，拍摄视角相近。每个采样区的下方和侧面布置标尺记录空间位置。图像与同一位置采集的沉积物样品一一对应，粒度分布使用 Beckman Coulter LS 13 320 激光衍射粒度分析仪测定。
+
+## 许可证
+
+- 本项目原创代码及配套软件文档采用 [MIT 许可证](LICENSE)。
+- 202 张 RGB TIFF 图像及配对实测粒度标签采用 [CC BY 4.0 许可证](samples/LICENSE.md)。
 
 ## 快速使用
 
