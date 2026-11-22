@@ -104,12 +104,8 @@ def load_checkpoint(path,device='cpu'):
         texture_settings=texture.get_config() if texture is not None else None
         if texture_settings!=experiment['texture']:
             raise ValueError('Checkpoint texture settings differ from the selected experiment')
-        if (experiment['variant'] == 'resnet50'
-                and 'prediction_head' not in experiment
-                and 'backbone.fc.weight' in state_dict):
-            # Earlier ResNet50 checkpoints used a single linear prediction layer.
-            out_features, in_features = state_dict['backbone.fc.weight'].shape
-            model.backbone.fc = nn.Linear(in_features, out_features)
+        if experiment['variant'] == 'resnet50' and 'backbone.fc.weight' in state_dict:
+            raise ValueError('ResNet50 requires a checkpoint with the shared 2048-512-256-5 MLP head.')
         model=model.to(device)
     model.load_state_dict(state_dict,strict=True)
     return model,checkpoint
